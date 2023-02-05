@@ -8,26 +8,38 @@
 import Foundation
 import Combine
 
-class SuperHeroGridViewModel: ObservableObject {
+protocol SuperHeroGridViewModelProtocol {
+    var superHeros: [SuperHero] { get }
+    func loadSuperHeros()
+    func deleteSuperHero(_ superHero: SuperHero)
+}
+
+final class SuperHeroGridViewModel: ObservableObject {
     @Published var superHeros = [SuperHero]() {
         didSet {
             didChange.send(self)
         }
     }
-    
+
     private let apiClient: Client
     private var disposables = Set<AnyCancellable>()
-    
+
     let didChange = PassthroughSubject<SuperHeroGridViewModel, Never>()
-    
+
     init(apiClient: Client = APIClient()) {
         self.apiClient = apiClient
         self.loadSuperHeros()
     }
-    
-    private func loadSuperHeros() {
+}
+
+extension SuperHeroGridViewModel: SuperHeroGridViewModelProtocol {
+    internal func loadSuperHeros() {
         self.apiClient.loadSuperHeroes { superHeros in
             self.superHeros = superHeros
         }
+    }
+    
+    internal func deleteSuperHero(_ superHero: SuperHero) {
+        self.superHeros.removeAll(where: { $0 == superHero })
     }
 }
