@@ -6,16 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ContentView: View {
+    @ObservedObject var model = SuperHeroGridViewModel()
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(model.superHeros, id: \.self) { superhero in
+                        VStack {
+                            KFImage.url(URL(string: superhero.images.sm))
+                            Text("\(superhero.name)")
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("SuperHeros", displayMode: .inline)
         }
-        .padding()
     }
 }
 
