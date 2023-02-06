@@ -1,0 +1,6 @@
+framework module Pods_Super_Hero_AppTests {
+  umbrella header "Pods-Super Hero AppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
