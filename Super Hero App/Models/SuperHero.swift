@@ -12,6 +12,7 @@ struct SuperHero: Identifiable, Decodable, Hashable {
     var name: String
     var slug: String
     var images: HeroImage
+    var appearance: Appearance
 }
 
 extension SuperHero: Equatable {

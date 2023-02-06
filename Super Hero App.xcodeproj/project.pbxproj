@@ -22,6 +22,7 @@
 		ECF1605F2990186A008FC145 /* SuperHeroGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF1605E2990186A008FC145 /* SuperHeroGridViewModel.swift */; };
 		ECF1606429904F24008FC145 /* SuperHeroGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF1606329904F24008FC145 /* SuperHeroGridView.swift */; };
 		ECF1606829904F56008FC145 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF1606729904F56008FC145 /* ItemView.swift */; };
+		ECF1606A299064DC008FC145 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF16069299064DC008FC145 /* Appearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		ECF1605E2990186A008FC145 /* SuperHeroGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHeroGridViewModel.swift; sourceTree = "<group>"; };
 		ECF1606329904F24008FC145 /* SuperHeroGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHeroGridView.swift; sourceTree = "<group>"; };
 		ECF1606729904F56008FC145 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		ECF16069299064DC008FC145 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Appearance.swift; path = ../../../../../Documents/Appearance.swift; sourceTree = "<group>"; };
 		F459B11CA47B5BC1B2874A4A /* Pods-Super Hero App-Super Hero AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Super Hero App-Super Hero AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Super Hero App-Super Hero AppUITests/Pods-Super Hero App-Super Hero AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6A0A125584E6B13FC627CC9 /* Pods_Super_Hero_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Super_Hero_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 			children = (
 				ECF1604F29900EF0008FC145 /* SuperHero.swift */,
 				ECF1605729901032008FC145 /* HeroImage.swift */,
+				ECF16069299064DC008FC145 /* Appearance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				ECF1605829901032008FC145 /* HeroImage.swift in Sources */,
 				ECF1605B299011EB008FC145 /* APIClient.swift in Sources */,
 				ECF1606829904F56008FC145 /* ItemView.swift in Sources */,
+				ECF1606A299064DC008FC145 /* Appearance.swift in Sources */,
 				ECF1605F2990186A008FC145 /* SuperHeroGridViewModel.swift in Sources */,
 				ECF1606429904F24008FC145 /* SuperHeroGridView.swift in Sources */,
 				ECECB727299009C2003CBF3A /* Super_Hero_AppApp.swift in Sources */,

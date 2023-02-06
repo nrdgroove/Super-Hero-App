@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct SuperHeroGridView: View {
-    @ObservedObject var model = SuperHeroGridViewModel()
-    
+    @ObservedObject var viewModel = SuperHeroGridViewModel()
+    @State private var favoriteColor = 0
+
     var body: some View {
         NavigationView {
-            gridView
-                .navigationBarTitle("Super Heros", displayMode: .inline)
+            VStack {
+                HStack {
+                    TextField("e.g. Batman, Female", text: $viewModel.searchText)
+                        .padding()
+                    Spacer()
+                    Button("Search") {
+                        UIApplication.shared.windows.first { $0.isKeyWindow }?.endEditing(true)
+                    }
+                }
+                .padding()
+                
+                gridView
+            }
+            .navigationBarTitle("Super Heros", displayMode: .inline)
         }
     }
     
@@ -22,11 +35,11 @@ struct SuperHeroGridView: View {
     private var gridView: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(model.superHeros, id: \.self) { superHero in
+                ForEach(viewModel.superHeros, id: \.self) { superHero in
                     ItemView(superHero: superHero)
                         .contextMenu(ContextMenu(menuItems: {
                             Button {
-                                model.deleteSuperHero(superHero)
+                                viewModel.delete(superHero)
                             } label: {
                                 Label("Delete Super Hero", systemImage: "trash")
                             }
