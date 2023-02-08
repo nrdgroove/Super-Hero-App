@@ -8,59 +8,45 @@
 import Foundation
 import Combine
 
-protocol SuperHeroGridViewModelProtocol {
-    var superHeros: [SuperHero] { get }
-    func loadSuperHeros()
-    func delete(_ superHero: SuperHero)
-}
-
 final class SuperHeroGridViewModel: ObservableObject {
-    @Published var superHeros = [SuperHero]() {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
+    @Published var superHeros: [SuperHero] = []
     @Published var searchText: String = ""
 
-    private let apiClient: Client
+    private let apiClient: APIClient
     private var disposables = Set<AnyCancellable>()
 
-    let didChange = PassthroughSubject<SuperHeroGridViewModel, Never>()
-
-    init(apiClient: Client = APIClient()) {
+    init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
-        self.loadSuperHeros()
+        addSubscribers()
+    }
+    
+    func addSubscribers() {
+        apiClient.$superHeros
+            .sink { [weak self] superHeros in
+                self?.superHeros = superHeros
+            }
+            .store(in: &disposables)
         
         $searchText
-            .map { text -> [SuperHero] in
+            .combineLatest(apiClient.$superHeros)
+            .map { (text, superHeros) in
                 guard !text.isEmpty else {
-                    return self.superHeros
+                    return superHeros
                 }
-                
+                 
                 let lowercasedText = text.lowercased()
                 
-                let filteredSuperHero = self.superHeros.filter { superHero -> Bool in
-                    return superHero.name.lowercased().contains(lowercasedText) ||
-                    superHero.appearance.gender.lowercased().contains(lowercasedText)
+                return superHeros.filter { superHero -> Bool in
+                    return superHero.name.lowercased().contains(lowercasedText) || superHero.appearance.gender.lowercased().contains(lowercasedText)
                 }
-                return filteredSuperHero
             }
-            .sink { [weak self] (returnedSuperHeros) in
-                self?.superHeros = returnedSuperHeros
+            .sink { [weak self] superHeros in
+                self?.superHeros = superHeros
             }
             .store(in: &disposables)
     }
-}
-
-extension SuperHeroGridViewModel: SuperHeroGridViewModelProtocol {
-    internal func loadSuperHeros() {
-        self.apiClient.loadSuperHeroes { superHeros in
-            self.superHeros = superHeros
-        }
-    }
     
-    internal func delete(_ superHero: SuperHero) {
+    func delete(_ superHero: SuperHero) {
         self.superHeros.removeAll(where: { $0 == superHero })
     }
 }
